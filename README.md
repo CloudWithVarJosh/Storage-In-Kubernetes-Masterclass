@@ -2,7 +2,7 @@
 
 ## Video reference for the MASTERCLASS is the following:
 
-[![Watch the video](https://img.youtube.com/vi/30APkYdRSHk/maxresdefault.jpg)](https://www.youtube.com/watch?v=30APkYdRSHk&ab_channel=CloudWithVarJosh)
+[![Watch the video](https://img.youtube.com/vi/8oHoBCyg4eQ/maxresdefault.jpg)](https://www.youtube.com/watch?v=8oHoBCyg4eQ&ab_channel=CloudWithVarJosh)
 
 ---
 ## ⭐ Support the Project  
