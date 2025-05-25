@@ -2,7 +2,7 @@
 
 ## Video reference for the MASTERCLASS is the following:
 
-[![Watch the video](https://img.youtube.com/vi/5t3yHFoqK6g/maxresdefault.jpg)](https://www.youtube.com/watch?v=5t3yHFoqK6g&t=12s&ab_channel=CloudWithVarJosh)
+[![Watch the video](https://img.youtube.com/vi/30APkYdRSHk/maxresdefault.jpg)](https://www.youtube.com/watch?v=30APkYdRSHk&ab_channel=CloudWithVarJosh)
 
 ---
 ## ⭐ Support the Project  
@@ -13,13 +13,6 @@ If this **repository** helps you, give it a ⭐ to show your support and help ot
 
 * [Introduction](#introduction)
 * [Understanding Storage in Docker](#understanding-storage-in-docker)
-  * [Layers in a Dockerfile](#layers-in-a-dockerfile)
-  * [Example: Layers in Our Dockerfile](#example-layers-in-our-dockerfile)
-  * [How to Inspect Image Layers](#how-to-inspect-image-layers)
-  * [How Docker Containers Use Image Layers](#how-docker-containers-use-image-layers)
-  * [Storage Calculation Example](#storage-calculation-example)
-  * [Handling Data Loss in Writable Layers](#handling-data-loss-in-writable-layers)
-  * [Need for Persistent Storage](#need-for-persistent-storage)
 * [Storage in Docker: How Does It Work?](#storage-in-docker-how-does-it-work)
   * [1. Storage Drivers](#1-storage-drivers)
   * [2. Volume Drivers](#2-volume-drivers)
@@ -29,55 +22,44 @@ If this **repository** helps you, give it a ⭐ to show your support and help ot
 * [Demo: With Persistent Storage (Docker Volume)](#demo-with-persistent-storage-docker-volume)
   * [Note for macOS and Windows Users](#note-for-macos-and-windows-users)
 * [Types of Docker Volumes: Which to Use When?](#types-of-docker-volumes-which-to-use-when)
-* [Conclusion](#conclusion)
 * [Kubernetes Core and Extended Architecture](#kubernetes-core-and-extended-architecture)
-  * [Kubernetes Core Architecture](#kubernetes-core-architecture)
-  * [Kubernetes Extensions: Beyond the Core](#kubernetes-extensions-beyond-the-core)
-    * [1. Plugins](#1-plugins)
-    * [2. Add-Ons](#2-add-ons)
-    * [3. Third-Party Extensions](#3-third-party-extensions)
-  * [Deep Dive into Kubernetes Interfaces](#deep-dive-into-kubernetes-interfaces)
-  * [Why Kubernetes Uses a Plugin-Based Architecture](#why-kubernetes-uses-a-plugin-based-architecture)
-  * [Key Takeaways](#key-takeaways)
 * [Ephemeral Storage](#ephemeral-storage)
-  * [emptyDir](#emptydir)
+  * [EmptyDir](#emptydir)
   * [Demo: emptyDir](#demo-emptydir)
 * [Downward API](#downward-api)
+  * [Why is it Used?](#why-is-it-used)
   * [Demo: downwardAPI - Environment variables](#demo-downwardapi---environment-variables)
   * [Demo: downwardAPI - Files via Volumes](#demo-downwardapi---files-via-volumes)
 * [ConfigMaps & Secrets (Preview)](#configmaps--secrets-preview)
 * [Evolution of Storage in Kubernetes: From In-Tree to CSI Drivers](#evolution-of-storage-in-kubernetes-from-in-tree-to-csi-drivers)
-  * [1. In-Tree Volume Plugins: The Legacy Model](#1-in-tree-volume-plugins-the-legacy-model)
-  * [2. Container Storage Interface (CSI): The Modern Standard](#2-container-storage-interface-csi-the-modern-standard)
-  * [Special Cases: hostPath and local Storage](#special-cases-hostpath-and-local-storage)
-  * [Transitioning from In-Tree Drivers](#transitioning-from-in-tree-drivers)
 * [Persistent Storage](#persistent-storage)
   * [hostPath](#hostpath)
-  * [Understanding hostPath in KIND: How Storage Works Under the Hood](#understanding-hostpath-in-kind-how-storage-works-under-the-hood)
   * [Demo: hostPath](#demo-hostpath)
-  * [Verification Across Pods on the Same Node](#verification-across-pods-on-the-same-node)
 * [Persistent Volumes (PVs) & Persistent Volume Claims (PVCs)](#persistent-volumes-pvs--persistent-volume-claims-pvcs)
   * [Understanding Scope & Relationships of PV and PVC in Kubernetes](#understanding-scope--relationships-of-pv-and-pvc-in-kubernetes)
   * [1-to-1 Binding Relationship Between PVC and PV](#1-to-1-binding-relationship-between-pvc-and-pv)
   * [Kubernetes Persistent Storage Flow (Manual Provisioning)](#kubernetes-persistent-storage-flow-manual-provisioning)
+  * [Demo: Persistent Volumes and PVCs with Reclaim Policy](#demo-persistent-volumes-and-pvcs-with-reclaim-policy)
 * [Access Modes in Kubernetes Persistent Volumes](#access-modes-in-kubernetes-persistent-volumes)
   * [Explanation of Storage Types](#explanation-of-storage-types)
   * [Key Differences: Block Storage vs. File Storage](#key-differences-block-storage-vs-file-storage)
 * [Reclaim Policies in Kubernetes](#reclaim-policies-in-kubernetes)
 * [PVC and PV Binding Conditions](#pvc-and-pv-binding-conditions)
-* [Working with ConfigMaps](#working-with-configmaps)
-  * [What and Why of ConfigMaps](#what-and-why-of-configmaps)
-  * [Demo: Injecting Environment Variables into Pods](#demo-injecting-environment-variables-into-pods)
-  * [Demo 1: ConfigMaps as Environment Variables](#demo-1-configmaps-as-environment-variables)
-  * [Demo 2: ConfigMaps as Configuration Files (Volumes)](#demo-2-configmaps-as-configuration-files-volumes)
-* [Working with Secrets](#working-with-secrets)
-  * [What and Why of Kubernetes Secrets](#what-and-why-of-kubernetes-secrets)
-  * [Demo 1: Secrets as Environment Variables](#demo-1-secrets-as-environment-variables)
-  * [Demo 2: Secrets as Volumes](#demo-2-secrets-as-volumes)
+* [Storage Classes & Dynamic Provisioning](#storage-classes--dynamic-provisioning)
+  * [Dynamic Provisioning in Action](#dynamic-provisioning-in-action)
+  * [Demo: Storage Class](#demo-storage-class)
+* [ConfigMaps](#configmaps)
+    * [Demo 1: Using ConfigMap as Environment Variables](#demo-1-using-configmap-as-environment-variables)
+    * [Demo 2: Using ConfigMap as a Configuration File (Volume Mount)](#demo-2-using-configmap-as-a-configuration-file-volume-mount)
+    * [Best Practices for ConfigMap](#best-practices-for-configmap)
+* [Kubernetes Secrets](#kubernetes-secrets)
+
+    * [Demo 1: Injecting Secrets into a Pod](#demo-1-injecting-secrets-into-a-pod)
+    * [Best Practices for Using Kubernetes Secrets](#best-practices-for-using-kubernetes-secrets)
+
+* [Understanding Dynamic Updates with ConfigMaps and Secrets](#understanding-dynamic-updates-with-configmaps-and-secrets)
 * [Conclusion](#conclusion-1)
 * [References](#references)
-
----
 
 ### Introduction
 
@@ -473,15 +455,6 @@ For development and local testing, **bind mounts** are useful when you want to s
 
 ---
 
-### **Conclusion**
-
-Docker volumes are essential for managing **persistent storage** in containerized environments. While containers are designed to be ephemeral, volumes provide a way to preserve data even if the container is stopped, removed, or recreated.
-
-We also saw how the behavior of storage slightly differs across **Linux**, **macOS**, and **Windows** due to the use of virtualization layers like **Docker Desktop** (with **HyperKit** on macOS and **WSL2** on Windows). Regardless of platform, understanding how Docker handles data—through **storage drivers**, **volume drivers**, and volume mounting—lays the foundation for more complex systems like **Kubernetes storage** with **Persistent Volumes** and **CSI drivers**.
-
-In the next lecture, we’ll extend this understanding to the Kubernetes world and learn how storage is handled across a cluster!
-
----
 
 # **Kubernetes Core and Extended Architecture**  
 
